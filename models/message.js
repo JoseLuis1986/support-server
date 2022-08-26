@@ -3,12 +3,12 @@ const{ Schema, model} = require('mongoose');
 
 const MessageSchema = Schema({
 
-    of: {
+    from: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },  
-    for: {
+    to: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
