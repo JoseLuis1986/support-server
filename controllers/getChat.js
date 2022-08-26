@@ -7,20 +7,26 @@ const getChat = async( req, res = response ) => {
     const miId = req.uid;
     const msjsDe = req.params.de;
 
-    const last30 = await Message.find({
-        $or: [
-            { of: miId, for: msjsDe},
-            { of: msjsDe, for: miId}
-        ]
-    })
-    .sort({ createdAt: 'desc'})
-    .limit(30);
+    console.log( msjsDe );
 
-    res.json({
-        ok: true,
-        mensajes: last30
-    })
-
+    try {
+        const last30 = await Message.find({
+            $or: [
+                { from: miId, to: msjsDe},
+                { from: msjsDe, to: miId}
+            ]
+        })
+        .sort({ createdAt: 'asc'})
+        .limit(30);
+    
+        res.json({
+            ok: true,
+            mensajes: last30
+        })
+        
+    } catch (err) {
+        console.log(err)
+    }
 
 }
 

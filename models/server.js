@@ -22,7 +22,7 @@ class Server {
         this.server = http.createServer(this.app);
 
         // Configuraciones de sockets
-        this.io = socketio(this.server, { /* configuraciones */ });
+        this.io = socketio(this.server, { maxHttpBufferSize: 1e8, pingTimeout: 60000 });
     }
 
     middlewares() {
